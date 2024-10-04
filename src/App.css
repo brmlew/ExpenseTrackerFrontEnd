@@ -77,3 +77,16 @@ label {
 .add-button {
   margin-left: 5%;
 }
+
+td {
+  text-align: left;
+}
+
+.amount {
+  text-align: end;
+}
+
+.dropdown {
+  width: 10%;
+  height: 2rem;
+}
