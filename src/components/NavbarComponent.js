@@ -1,6 +1,6 @@
 export default function Navbar() {
     return <nav className="nav">
-        <a href="/" className="site-Home">Expense tracker</a>
+        <a href="/" className="site-Home">Expense Tracker</a>
         <ul>
             <li>
                 <a href="/add">Add Expense</a>

@@ -34,10 +34,14 @@ class AddExpenseComponent extends React.Component {
         
         for (let i = 0; i < categories.length; i++) {
             if (categories[i]['categoryName'] == event.target.value) {
-                this.setState({category: categories[i]});
+                this.setState({category: categories[i]}, () => {
+                    const filtered = this.filterSubcategory();
+                    this.setState({subcategory: filtered[0]});
+                })
                 break;
             }
         }
+        
     }
 
     changeSubcategory = (event) => {
@@ -84,32 +88,27 @@ class AddExpenseComponent extends React.Component {
             <div>
                 <form>
                     <label>Category:</label>
-                    <select onChange={this.changeCategory}>
+                    <select onChange={this.changeCategory} className='addInput'>
                         {this.state.categories.map((category) =>(
                             <option value={category.categoryName} key={category.id}>{category.categoryName}</option>
                         ))}
                     </select>
                     <br></br>
-                    <br></br>
                     <label>Subcategory:</label>
-                    <select onChange={this.changeSubcategory} onSubmit={this.changeSubcategory}>
+                    <select onChange={this.changeSubcategory} onSubmit={this.changeSubcategory} className='addInput'>
                         {filteredSubcategories.map((subcategory) =>(
                             <option value={subcategory.subcategoryName} key={subcategory.id}>{subcategory.subcategoryName}</option>
                         ))}
                     </select>
                     <br></br>
-                    <br></br>
                     <label>Date:</label>
-                    <input type="date" className='datepicker' value={this.state.date} onChange={this.changeDate}></input>
-                    <br></br>
+                    <input type="date" className='datepicker addInput' value={this.state.date} onChange={this.changeDate}></input>
                     <br></br>
                     <label>Amount:</label>
-                    <input type="number" onChange={this.changeAmount}></input>
-                    <br></br>
+                    <input type="number" onChange={this.changeAmount} className='addInput'></input>
                     <br></br>
                     <label>Note:</label>
-                    <input type="text" value={this.state.note} placeholder='Add note...' onChange={this.changeNote}></input>
-                    <br></br>
+                    <input type="text" value={this.state.note} placeholder='Add note...' onChange={this.changeNote} className='addInput'></input>
                     <br></br>
                     <button type='submit' className='btn btn-success' onClick={this.submit}>Submit</button>
                 </form>

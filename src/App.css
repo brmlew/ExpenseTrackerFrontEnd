@@ -90,3 +90,8 @@ td {
   width: 10%;
   height: 2rem;
 }
+
+.addInput {
+  width: 10%;
+  margin-bottom: 2rem;
+}

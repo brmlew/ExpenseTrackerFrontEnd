@@ -17,7 +17,6 @@ class ExpenseComponent extends React.Component {
             afterDate: "",
             total: 0,
             filteredCategories: [],
-            filteredSubcategories:[],
             sort: "date",
             sortDirection: 1
         }
@@ -47,7 +46,6 @@ class ExpenseComponent extends React.Component {
 
         SubcategoryService.getSubcategories().then((subcategoryResponse) => {
             this.setState({subcategories: subcategoryResponse.data})
-            // this.setState({filteredSubcategories: subcategoryResponse.data})
         })
 
         let today = new Date();
@@ -71,13 +69,16 @@ class ExpenseComponent extends React.Component {
     }
 
     getFilteredExpenses = () => {
-        const { expenses, searchTerm, afterDate, beforeDate, filteredCategories, filteredSubcategories, sort, sortDirection } = this.state;
+        const { expenses, searchTerm, afterDate, beforeDate, filteredCategories, sort, sortDirection } = this.state;
 
         let filtered = expenses.filter(expense => {
             const search = expense.note.toLowerCase().includes(searchTerm.toLowerCase())
 
             const expenseDate = new Date(expense.date);
-            const inDateRange =(!afterDate || new Date(afterDate) <= expenseDate) && (!beforeDate || new Date(beforeDate) >= expenseDate);
+            const before = new Date(beforeDate);
+            before.setDate(before.getDate() + 1);
+
+            const inDateRange =(!afterDate || new Date(afterDate) <= expenseDate) && (!beforeDate || before >= expenseDate);
 
             let category = false;
             for (let i = 0; i < filteredCategories.length; i++) {
@@ -85,14 +86,6 @@ class ExpenseComponent extends React.Component {
                     category = true;
                 }
             }
-
-            // let subcategory = false;
-            // console.log(filteredSubcategories)
-            // for (let i = 0; i < filteredSubcategories.length; i++) {
-            //     if (filteredSubcategories[i].subcategoryName == expense.subcategory.subcategoryName) {
-            //         subcategory = true;
-            //     }
-            // }
 
             return search && inDateRange && category;
         } );
@@ -189,14 +182,9 @@ class ExpenseComponent extends React.Component {
     changeCategory = (event) => {
         this.setState({filteredCategories: event.target.value})
     }
-    // changeSubcategory = (event) => {
-    //     this.setState({filteredSubcategories: event.target.value})
-    // }
-    
     render () {
         const filteredExpenses = this.getFilteredExpenses();
         const total = this.getTotal(filteredExpenses);
-        // let filteredSubcategories = this.filterSubcategory();
         
         return (
             <div>
@@ -220,18 +208,6 @@ class ExpenseComponent extends React.Component {
                         </MenuItem>
                     )}
                     </Select>
-
-                    {/* <label>Subcategory</label>
-                    <Select value={this.state.filteredSubcategories} multiple className='dropdown' onChange={this.changeSubcategory} renderValue={(selected)=>{selected.join(' ')}}>
-                    {filteredSubcategories.map(subcategory => 
-                        <MenuItem key={subcategory.id} value={subcategory}>
-                            <ListItemIcon>
-                                <Checkbox checked={this.state.filteredSubcategories.includes(subcategory)}></Checkbox>
-                            </ListItemIcon>
-                            <ListItemText primary={subcategory.subcategoryName}></ListItemText>
-                        </MenuItem>
-                    )}
-                    </Select> */}
                 </nav>
                 
                 <table className='table table-striped'>
