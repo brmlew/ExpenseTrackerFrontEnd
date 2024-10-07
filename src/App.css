@@ -95,3 +95,7 @@ td {
   width: 10%;
   margin-bottom: 2rem;
 }
+
+.header:hover {
+  cursor: pointer;
+}
