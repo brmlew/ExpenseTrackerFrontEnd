@@ -78,7 +78,6 @@ class AddExpenseComponent extends React.Component {
     submit= (event) => {
         event.preventDefault();
         const { date, amount, note, category, subcategory} = this.state;
-        console.log(date)
         ExpenseService.addExpense(date, amount, note, category['categoryName'], subcategory['subcategoryName']);
     }
     
