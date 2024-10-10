@@ -114,10 +114,10 @@ class ExpenseComponent extends React.Component {
         let sum = 0;
 
         for (let i = 0; i < filteredExpenses.length; i++) {
-            sum += filteredExpenses[i].amount;
+            sum += filteredExpenses[i].amount * 100;
         }
 
-        return sum;
+        return sum / 100;
     }
 
     filterSubcategory = () => {
