@@ -20,33 +20,25 @@ class ExpenseService {
         );
     }
 
-    deleteExpense(date, amount, note, category, subcategory) {
+    deleteExpense(id) {
         return axios.post(EXPENSES_REST_API_URL, 
             {
                 "type": "delete",
+                "id": id
+            }
+        );
+    }
+
+    updateExpense(id, date, amount, note, category, subcategory) {
+        return axios.post(EXPENSES_REST_API_URL, 
+            {
+                "type": "update",
+                "id": id,
                 "date": date,
                 "amount": amount,
                 "note": note,
                 "category": category,
                 "subcategory": subcategory
-            }
-        );
-    }
-
-    updateExpense(date, amount, note, category, subcategory, newDate, newAmount, newNote, newCategory, newSubcategory) {
-        return axios.post(EXPENSES_REST_API_URL, 
-            {
-                "type": "update",
-                "date": date,
-                "amount": amount,
-                "note": note,
-                "category": category,
-                "subcategory": subcategory,
-                "newDate": newDate,
-                "newAmount": newAmount,
-                "newNote": newNote,
-                "newCategory": newCategory,
-                "newSubcategory": newSubcategory
             }
         );
     }

@@ -184,8 +184,7 @@ class ExpenseComponent extends React.Component {
     }
 
     deleteExpense = (event, expense) => {
-        console.log(expense);
-        ExpenseService.deleteExpense(expense.date, expense.amount, expense.note, expense.category.categoryName, expense.subcategory.subcategoryName);
+        ExpenseService.deleteExpense(expense.id);
         window.location.reload(false);
     }
 
