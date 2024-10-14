@@ -99,3 +99,11 @@ td {
 .header:hover {
   cursor: pointer;
 }
+
+.bi-pencil-square {
+  margin-left: 25%;
+}
+
+.bi {
+  cursor: pointer;
+}
