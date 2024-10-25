@@ -18,7 +18,8 @@ class ExpenseComponent extends React.Component {
             total: 0,
             filteredCategories: [],
             sort: "date",
-            sortDirection: 1
+            sortDirection: 1,
+            deletedExpense: ""
         }
     }
 
@@ -183,9 +184,21 @@ class ExpenseComponent extends React.Component {
         this.setState({filteredCategories: event.target.value})
     }
 
-    deleteExpense = (event, expense) => {
-        ExpenseService.deleteExpense(expense.id);
+    deleteExpense = (event) => {
+        ExpenseService.deleteExpense(this.state.deletedExpense);
         window.location.reload(false);
+    }
+
+    deletePopup = (event, expense) => {
+        let myEl = document.getElementById("hideScreen");
+        myEl.style.display = "flex";
+        
+        this.setState({deletedExpense: expense.id});
+    }
+
+    cancelDelete = (event) => {
+        let myEl = document.getElementById("hideScreen");
+        myEl.style.display = "None";
     }
 
     render () {
@@ -220,23 +233,23 @@ class ExpenseComponent extends React.Component {
                     <thead>
                         <tr>
                             <td></td>
-                            <td className='header' onClick={this.sortDate}>Date
+                            <td className='tableHeader' onClick={this.sortDate}>Date
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrows-vertical" viewBox="0 0 16 16">
                                     <path d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"/>
                                 </svg>
                             </td>
-                            <td className='header' onClick={this.sortCategory}>Category
+                            <td className='tableHeader' onClick={this.sortCategory}>Category
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrows-vertical" viewBox="0 0 16 16">
                                     <path d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"/>
                                 </svg>
                             </td>
-                            <td className='header' onClick={this.sortSubcategory}>Subcategory
+                            <td className='tableHeader' onClick={this.sortSubcategory}>Subcategory
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrows-vertical" viewBox="0 0 16 16">
                                     <path d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"/>
                                 </svg>
                             </td>
                             <td>Note</td>
-                            <td className='amount header' onClick={this.sortAmount}>Amount
+                            <td className='amount tableHeader' onClick={this.sortAmount}>Amount
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrows-vertical" viewBox="0 0 16 16">
                                     <path d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"/>
                                 </svg>  
@@ -248,7 +261,7 @@ class ExpenseComponent extends React.Component {
                             filteredExpenses.map(expense => 
                                 <tr key = {expense.id.timestamp}>
                                     <td>
-                                        <svg onClick={(e) => {this.deleteExpense(e, expense)}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                                        <svg onClick={(e) => {this.deletePopup(e, expense)}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                                             <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
                                         </svg>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -267,6 +280,15 @@ class ExpenseComponent extends React.Component {
                     </tbody>
                 </table>
                 <div className='amount'>Total: {total}</div>
+                <div id='hideScreen'>
+                    <div className='deletePopup'>
+                        <div className='deleteText'>Would you like to delete this expense?</div>
+                        <div className='buttons'>
+                            <button className='cancelDelete' onClick={this.cancelDelete}>Cancel</button>
+                            <button className='confirmDelete' onClick={this.deleteExpense}>Delete</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
