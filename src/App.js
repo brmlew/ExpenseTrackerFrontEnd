@@ -1,38 +1,39 @@
 import './App.css';
-import AddExpenseComponent from './components/AddExpenseComponent';
-import ExpenseComponent from './components/ExpenseComponent';
-import { BrowserRouter as Router, Route, Routes as Switch } from 'react-router-dom';
 import ExpensesPage from './pages/ExpensesPage';
 import AddExpensesPage from './pages/AddExpensePage';
+import EditExpensePage from './pages/EditExpensePage';
 import Navbar from './components/NavbarComponent';
 import "./nav-style.css"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-  let component
-  switch (window.location.pathname) {
-    case "/":
-      component = <ExpensesPage />
-      break
-    case "/add":
-      component = <AddExpensesPage />
-      break
-  }
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      {component}
-    </>
-    
-
-    // <Router>
-    //   <div className="App">
-    //     <Switch>
-    //       <Route exact path='/' element={<ExpensesPage />}/>
-    //       <Route exact path='/add' element={<AddExpensesPage />}/>
-    //     </Switch>
-    //   </div>
-    // </Router>
-  );
+      <Routes>
+        <Route path='' element={<ExpensesPage />} />
+        <Route path='/add' element={<AddExpensesPage />} />
+        <Route path='/edit' element={<EditExpensePage />} />
+      </Routes>
+    </BrowserRouter>
+  )
+  // let component
+  // switch (window.location.pathname) {
+  //   case "/":
+  //     component = <ExpensesPage />
+  //     break
+  //   case "/add":
+  //     component = <AddExpensesPage />
+  //     break
+  //   case "/edit":
+  //     component = <EditExpensePage />
+  // }
+  // return (
+  //   <>
+  //     <Navbar />
+  //     {component}
+  //   </>
+  // );
 }
 
 export default App;

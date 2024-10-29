@@ -1,6 +1,5 @@
 import '../App.css';
 import AddExpenseComponent from '../components/AddExpenseComponent';
-import ExpenseComponent from '../components/ExpenseComponent';
 
 function AddExpensesPage() {
   return (
