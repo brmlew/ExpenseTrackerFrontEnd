@@ -1,0 +1,117 @@
+label {
+    margin-left: 5%;
+    margin-right:1%;
+  }
+  
+  .add-button {
+    margin-left: 5%;
+  }
+  
+  td {
+    text-align: left;
+  }
+  
+  .amount {
+    text-align: end;
+  }
+  
+  .dropdown {
+    width: 10%;
+    height: 2rem;
+  }
+  
+  .inputForm {
+    width: 20%;
+    margin: auto;
+    text-align: left;
+  }
+  
+  .addInput {
+    width: 60%;
+    margin-bottom: 2rem;
+  }
+  
+  .category {
+    margin-left: 7%;
+  }
+  
+  .datepicker {
+    margin-left: 16%;
+  }
+  
+  .amountInput {
+    margin-left: 9%;
+  }
+  
+  .note {
+    margin-left: 16%;
+  }
+  
+  .inputButtons {
+    justify-content: space-between;
+    display: flex;
+  }
+  
+  .tableHeader:hover {
+    cursor: pointer;
+  }
+  
+  .bi-pencil-square {
+    margin-left: 25%;
+  }
+  
+  .bi {
+    cursor: pointer;
+  }
+  
+  #hideScreen {
+    top:0; left: 0;
+     width: 100%;
+     height: 100%;
+     position: fixed;
+     background: rgba(50,50,50,0.9);
+     
+     display: none;
+  }
+  
+  .deletePopup {
+    width: 25%;
+    height: 25%;
+    background-color: white;
+    margin: auto;
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    border-radius: 3%;
+  }
+  
+  .deleteText {
+    text-align: center;
+    margin: auto;
+    margin-top: 12%;
+  }
+  
+  .buttons {
+    display: block;
+    margin-top: 10%;
+  }
+  
+  .confirmDelete {
+    width: 20%;
+    margin-left: 2%;
+    background-color: green;
+  }
+  .confirmDelete:hover {
+    background-color: lightgreen;
+  }
+  
+  .cancelDelete {
+    width: 20%;
+    margin-right: 2%;
+  }
+  
+  .btn-success {
+    margin-right: 6%;
+  }
+  

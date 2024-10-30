@@ -24,7 +24,6 @@ class InputExpenseComponent extends React.Component {
         
         if (location.state) {
             let expense = location.state.expense;
-            console.log(expense.amount)
             this.setState({id: expense.id})
             this.setState({date: this.formatJsDateToNormalDate(new Date(expense.date))});
             this.setState({amount: expense.amount});
@@ -105,6 +104,11 @@ class InputExpenseComponent extends React.Component {
         });
     }
 
+    cancel = (event) => {
+        const { navigate } = this.props;
+        navigate("/");
+    }
+
     submit= (event) => {
         event.preventDefault();
         const { id, date, amount, note, category, subcategory } = this.state;
@@ -121,9 +125,9 @@ class InputExpenseComponent extends React.Component {
         let filteredSubcategories = this.filterSubcategory();
         return (
             <div>
-                <form>
+                <form className='inputForm'>
                     <label>Category:</label>
-                    <select onChange={this.changeCategory} value={this.state.category.categoryName} className='addInput'>
+                    <select onChange={this.changeCategory} value={this.state.category.categoryName} className='addInput category'>
                         {this.state.categories.map((category) =>(
                             <option value={category.categoryName} key={category.id}>{category.categoryName}</option>
                         ))}
@@ -137,15 +141,19 @@ class InputExpenseComponent extends React.Component {
                     </select>
                     <br></br>
                     <label>Date:</label>
-                    <input type="date" className='datepicker addInput' value={this.state.date} onChange={this.changeDate}></input>
+                    <input type="date" className='datepicker inputDate addInput' value={this.state.date} onChange={this.changeDate} max={this.formatJsDateToNormalDate(new Date())}></input>
                     <br></br>
                     <label>Amount:</label>
-                    <input type="number" onChange={this.changeAmount} value={this.state.amount} className='addInput'></input>
+                    <input type="number" onChange={this.changeAmount} value={this.state.amount} className='addInput amountInput'></input>
                     <br></br>
                     <label>Note:</label>
-                    <input type="text" value={this.state.note} placeholder='Add note...' onChange={this.changeNote} className='addInput'></input>
+                    <input type="text" value={this.state.note} placeholder='Add note...' onChange={this.changeNote} className='addInput note'></input>
                     <br></br>
-                    <button type='submit' className='btn btn-success' onClick={this.submit}>Submit</button>
+                    <div className='inputButtons'>
+                        <button onClick={this.cancel} className='btn'>Cancel</button>
+                        <button type='submit' className='btn btn-success' onClick={this.submit} disabled={!this.state.date}>Submit</button>
+                    </div>
+                    
                 </form>
             </div>
         )

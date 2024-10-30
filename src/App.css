@@ -57,9 +57,36 @@ td {
   height: 2rem;
 }
 
+.inputForm {
+  width: 20%;
+  margin: auto;
+  text-align: left;
+}
+
 .addInput {
-  width: 10%;
+  width: 60%;
   margin-bottom: 2rem;
+}
+
+.category {
+  margin-left: 7%;
+}
+
+.inputDate {
+  margin-left: 16%;
+}
+
+.amountInput {
+  margin-left: 9%;
+}
+
+.note {
+  margin-left: 16%;
+}
+
+.inputButtons {
+  justify-content: space-between;
+  display: flex;
 }
 
 .tableHeader:hover {
@@ -119,4 +146,8 @@ td {
 .cancelDelete {
   width: 20%;
   margin-right: 2%;
+}
+
+.btn-success {
+  margin-right: 6%;
 }

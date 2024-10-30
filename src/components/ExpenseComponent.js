@@ -279,7 +279,7 @@ class ExpenseComponent extends React.Component {
                                     <td>{expense.category.categoryName}</td>
                                     <td>{expense.subcategory.subcategoryName}</td>
                                     <td>{expense.note}</td>
-                                    <td className='amount'>{expense.amount}</td>
+                                    <td className='amount'>{parseFloat(expense.amount).toFixed(2)}</td>
                                 </tr>
                             )
                         }
