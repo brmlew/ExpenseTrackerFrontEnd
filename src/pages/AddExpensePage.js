@@ -1,12 +1,12 @@
 import '../App.css';
-import AddExpenseComponent from '../components/AddExpenseComponent';
+import InputExpenseComponent from '../components/InputExpenseComponent';
 
 function AddExpensesPage() {
   return (
     <div className="App">
       <h1 className='header'>Add Expenses</h1>
       <div className='expenses'>
-        <AddExpenseComponent />
+        <InputExpenseComponent />
       </div>
     </div>
   );

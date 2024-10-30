@@ -1,12 +1,12 @@
 import '../App.css';
-import EditExpenseComponent from '../components/EditExpenseComponent';
+import InputExpenseComponent from '../components/InputExpenseComponent';
 
 function EditExpensePage() {
   return (
     <div className="App">
       <h1 className='header'>Edit Expenses</h1>
       <div className='expenses'>
-        <EditExpenseComponent />
+        <InputExpenseComponent />
       </div>
     </div>
   );
