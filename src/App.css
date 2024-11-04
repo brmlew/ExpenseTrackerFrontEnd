@@ -151,3 +151,24 @@ td {
 .btn-success {
   margin-right: 6%;
 }
+
+.bi {
+  border-radius: 30%;
+}
+
+.bi:hover {
+  background-color: lightgray;
+}
+
+.bi-chevron-left {
+  margin-right: 1%;
+}
+
+.bi-chevron-right {
+  margin-left: 1%;
+}
+
+.total {
+  text-align: end;
+  margin-top: 0.5rem;
+}

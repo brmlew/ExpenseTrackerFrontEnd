@@ -20,7 +20,8 @@ class ExpenseComponent extends React.Component {
             filteredCategories: [],
             sort: "date",
             sortDirection: 1,
-            deletedExpense: ""
+            deletedExpense: "",
+            page: 1
         }
     }
 
@@ -207,8 +208,31 @@ class ExpenseComponent extends React.Component {
         navigate("/edit", {state: {expense: expense}});
     }
 
+    previousPage = (event) => {
+        if (this.state.page != 1) {
+            this.setState({page: this.state.page - 1});
+        }
+        
+    }
+
+    firstPage = (event) => {
+        this.setState({page: 1});
+    }
+
+    nextPage = (event, totalPages) => {
+        if (this.state.page != totalPages) {
+            this.setState({page: this.state.page + 1});
+        }
+    }
+
+    lastPage = (event, totalPages) => {
+        this.setState({page: totalPages});
+    }
+
     render () {
         const filteredExpenses = this.getFilteredExpenses();
+        const paginatedExpenses = filteredExpenses.slice((this.state.page-1) * 10, this.state.page * 10);
+        const totalPages = Math.ceil(filteredExpenses.length/10);
         const total = this.getTotal(filteredExpenses);
         
         return (
@@ -224,14 +248,14 @@ class ExpenseComponent extends React.Component {
 
                     <label>Category</label>
                     <Select value={this.state.filteredCategories} multiple className='dropdown' onChange={this.changeCategory} renderValue={(selected)=>{selected.join(' ')}}>
-                    {this.state.categories.map(category => 
-                        <MenuItem key={category.id} value={category}>
-                            <ListItemIcon>
-                                <Checkbox checked={this.state.filteredCategories.includes(category)}></Checkbox>
-                            </ListItemIcon>
-                            <ListItemText primary={category.categoryName}></ListItemText>
-                        </MenuItem>
-                    )}
+                        {this.state.categories.map(category => 
+                            <MenuItem key={category.id} value={category}>
+                                <ListItemIcon>
+                                    <Checkbox checked={this.state.filteredCategories.includes(category)}></Checkbox>
+                                </ListItemIcon>
+                                <ListItemText primary={category.categoryName}></ListItemText>
+                            </MenuItem>
+                        )}
                     </Select>
                 </nav>
                 
@@ -264,8 +288,8 @@ class ExpenseComponent extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            filteredExpenses.map(expense => 
-                                <tr key = {expense.id.timestamp}>
+                            paginatedExpenses.map(expense => 
+                                <tr key={expense.id}>
                                     <td>
                                         <svg onClick={(e) => {this.deletePopup(e, expense)}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
                                             <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
@@ -285,7 +309,24 @@ class ExpenseComponent extends React.Component {
                         }
                     </tbody>
                 </table>
-                <div className='amount'>Total: {total}</div>
+                <div className='amount'>
+                    <svg onClick={this.firstPage} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                    </svg>
+                    <svg onClick={this.previousPage} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                    </svg>
+                    {this.state.page} of {totalPages}
+                    <svg onClick={(e) => this.nextPage(e, totalPages)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                    <svg onClick={(e) => this.lastPage(e, totalPages)} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+                        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </div>
+                <div className='total'>Total: {total}</div>
                 <div id='hideScreen'>
                     <div className='deletePopup'>
                         <div className='deleteText'>Would you like to delete this expense?</div>
