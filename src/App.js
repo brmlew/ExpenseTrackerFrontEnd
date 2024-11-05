@@ -2,9 +2,11 @@ import './App.css';
 import ExpensesPage from './pages/ExpensesPage';
 import AddExpensesPage from './pages/AddExpensePage';
 import EditExpensePage from './pages/EditExpensePage';
+import AdminPage from './pages/AdminPage';
 import Navbar from './components/NavbarComponent';
 import "./nav-style.css"
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 
 function App() {
   return (
@@ -14,26 +16,10 @@ function App() {
         <Route path='' element={<ExpensesPage />} />
         <Route path='/add' element={<AddExpensesPage />} />
         <Route path='/edit' element={<EditExpensePage />} />
+        <Route path='/admin' element={<AdminPage />} />
       </Routes>
     </BrowserRouter>
   )
-  // let component
-  // switch (window.location.pathname) {
-  //   case "/":
-  //     component = <ExpensesPage />
-  //     break
-  //   case "/add":
-  //     component = <AddExpensesPage />
-  //     break
-  //   case "/edit":
-  //     component = <EditExpensePage />
-  // }
-  // return (
-  //   <>
-  //     <Navbar />
-  //     {component}
-  //   </>
-  // );
 }
 
 export default App;
