@@ -41,8 +41,6 @@ class InputExpenseComponent extends React.Component {
             this.setState({subcategories: subcategoryResponse.data});
             if (!location.state) this.setState({subcategory: subcategoryResponse.data[0]});
         })
-
-        
     }
 
     changeCategory = (event) => {
@@ -151,7 +149,7 @@ class InputExpenseComponent extends React.Component {
                     <br></br>
                     <div className='inputButtons'>
                         <button onClick={this.cancel} className='btn'>Cancel</button>
-                        <button type='submit' className='btn btn-success' onClick={this.submit} disabled={!this.state.date}>Submit</button>
+                        <button type='submit' className='btn btn-success' onClick={this.submit} disabled={!this.state.date || this.state.amount.length == 0}>Submit</button>
                     </div>
                     
                 </form>
