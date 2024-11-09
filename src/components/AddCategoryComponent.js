@@ -20,6 +20,7 @@ class AddCategoryComponent extends React.Component {
         })
         SubcategoryService.getSubcategories().then((subcategoryResponse) => {
             this.setState({subcategories: subcategoryResponse.data});
+            console.log(subcategoryResponse.data);
         })
     }
 
@@ -47,9 +48,7 @@ class AddCategoryComponent extends React.Component {
 
 
     submit = (event) => {
-        CategoryService.createCategory(this.state.category);
-
-        SubcategoryService.createSubcategory(this.state.category, this.state.subcategory);
+        CategoryService.createCategory(this.state.category, this.state.subcategory);
     }
 
     render() {

@@ -10,7 +10,7 @@ class InputExpenseComponent extends React.Component {
         this.state = {
             id: 0,
             date: "",
-            amount: 0,
+            amount: "",
             note: "",
             category: "",
             subcategory: "",

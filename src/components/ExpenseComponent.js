@@ -234,7 +234,7 @@ class ExpenseComponent extends React.Component {
         const paginatedExpenses = filteredExpenses.slice((this.state.page-1) * 10, this.state.page * 10);
         const totalPages = Math.ceil(filteredExpenses.length/10);
         const total = this.getTotal(filteredExpenses);
-        
+
         return (
             <div>
                 <nav className="navigation-bar navbar-light">
@@ -327,7 +327,7 @@ class ExpenseComponent extends React.Component {
                         <path fillRule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
                     </svg>
                 </div>
-                <div id='hideScreen'>
+                <div id='hideScreen' onClick={this.cancelDelete}>
                     <div className='deletePopup'>
                         <div className='deleteText'>Would you like to delete this expense?</div>
                         <div className='buttons'>

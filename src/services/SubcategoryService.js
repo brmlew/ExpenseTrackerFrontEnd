@@ -8,6 +8,7 @@ class SubcategoryService {
     }
 
     createSubcategory(categoryName, subcategoryName) {
+        console.log(categoryName)
         return axios.post(SUBCATEGORIES_REST_API_URL,
             {
                 "categoryName": categoryName,

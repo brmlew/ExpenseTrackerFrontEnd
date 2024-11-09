@@ -137,9 +137,6 @@ td {
 .confirmDelete {
   width: 20%;
   margin-left: 2%;
-  background-color: green;
-}
-.confirmDelete:hover {
   background-color: lightgreen;
 }
 
